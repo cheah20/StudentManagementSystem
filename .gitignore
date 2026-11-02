@@ -1,0 +1,8 @@
+# old copies, design drafts and editor files
+_backup/
+files/
+*.zip
+.vscode/
+
+.DS_Store
+Thumbs.db
