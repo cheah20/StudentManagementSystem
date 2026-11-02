@@ -815,18 +815,58 @@ function renderTeacherSchedule(el, title) {
   el.innerHTML = pageHead(title, `<button class="btn btn-primary btn-sm" onclick="openModal('modalAddClass')">+ Add Class</button>`) + card("My weekly schedule", scheduleGrid(getClasses().filter((c) => c.teacher === currentUser.name), false));
 }
 function renderTeacherGrades(el, title) {
-  el.innerHTML = pageHead(title, `<button class="btn btn-primary btn-sm" onclick="openAddGrade()">+ Add Grade</button>`) + card("Grades", gradeTable(getGrades(), { student: true }), "", true);
+  el.innerHTML = `${pageHead(title)}
+  <div class="pay-search">
+    <div class="fg"><label for="tgSearch">Index no. / Name / Subject</label><input id="tgSearch" placeholder="STU-001, name or subject" oninput="showTeacherGrades()"/></div>
+    <button class="dark-btn" onclick="openAddGrade()">Add Grade <i>›</i></button>
+  </div>
+  <div id="tgTable"></div>`;
+  showTeacherGrades();
+}
+function showTeacherGrades() {
+  const q = document.getElementById("tgSearch").value.trim().toLowerCase();
+  const list = getGrades().filter((g) => [g.studentId, studentById(g.studentId).name, g.subject].some((v) => v.toLowerCase().includes(q)));
+  const rows = list.map((g, i) => {
+    const s = studentById(g.studentId);
+    const p = pct(g);
+    return `<tr><td class="right">${i + 1}</td><td>${g.date}</td><td><span class="code">${s.id}</span><br>${s.name}</td><td>${g.subject}</td>
+      <td><span class="pill info">${g.type}</span></td><td class="num">${g.score}/${g.maxScore}</td><td><span class="pill ${tone(p)}">${letter(p)} (${p}%)</span></td></tr>`;
+  });
+  document.getElementById("tgTable").innerHTML = `<div class="gloss"><div class="gloss-title">Grade Book</div><table>
+    <thead><tr><th>No</th><th>Date</th><th>Index / Name</th><th>Subject</th><th>Type</th><th>Score</th><th>Grade</th></tr></thead>
+    <tbody>${rows.join("") || '<tr><td class="empty" colspan="7">No grades match</td></tr>'}</tbody>
+    <tfoot><tr><td></td><td colspan="4" class="right">${list.length} results, average:</td><td class="num">${average(list)}%</td><td></td></tr></tfoot>
+  </table></div>`;
 }
 function renderTeacherStudents(el, title) {
-  const rows = getStudents()
-    .filter((s) => s.status === "active")
-    .map((s) => {
-      const avg = average(getGrades().filter((g) => g.studentId === s.id));
-      const subs = getSubmissions().filter((sb) => sb.studentId === s.id).length;
-      return `<tr><td>${who(s)}</td><td><span class="pill primary">${s.intake}</span></td><td><b class="text-${tone(avg)}">${avg}%</b></td><td>${subs} submitted</td><td>${balancePill(s)}</td></tr>`;
-    })
-    .join("");
-  el.innerHTML = pageHead(title) + card("Active students", `<div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Intake</th><th>Avg score</th><th>Assignments</th><th>Fee status</th></tr></thead><tbody>${rows}</tbody></table></div>`, "", true);
+  el.innerHTML = `${pageHead(title)}
+  <div class="pay-search">
+    <div class="fg"><label for="tsSearch">Index no. / Name</label><input id="tsSearch" placeholder="STU-001 or name" oninput="showTeacherStudents()"/></div>
+    <button class="dark-btn" onclick="nav('t-grades')">Grade Students <i>›</i></button>
+  </div>
+  <div id="tsTable"></div>`;
+  showTeacherStudents();
+}
+function showTeacherStudents() {
+  const q = document.getElementById("tsSearch").value.trim().toLowerCase();
+  const list = getStudents().filter((s) => s.status === "active" && [s.id, s.name].some((v) => v.toLowerCase().includes(q)));
+  // students with no grades yet show a dash and stay out of the class average
+  const avgs = list.map((s) => {
+    const mine = getGrades().filter((g) => g.studentId === s.id);
+    return mine.length ? average(mine) : null;
+  });
+  const graded = avgs.filter((v) => v !== null);
+  const rows = list.map((s, i) => {
+    const subs = getSubmissions().filter((sb) => sb.studentId === s.id).length;
+    return `<tr><td class="right">${i + 1}</td><td><div class="who">${avatar(s)}<div><span class="code">${s.id}</span><b>${s.name}</b></div></div></td><td><span class="pill primary">${s.intake}</span></td>
+      <td class="num">${avgs[i] === null ? '<span class="muted">—</span>' : `<b class="text-${tone(avgs[i])}">${avgs[i]}%</b>`}</td><td class="num">${subs}</td><td>${balancePill(s)}</td></tr>`;
+  });
+  const classAvg = graded.length ? Math.round(graded.reduce((a, b) => a + b, 0) / graded.length) : 0;
+  document.getElementById("tsTable").innerHTML = `<div class="gloss"><div class="gloss-title">My Students</div><table>
+    <thead><tr><th>No</th><th>Index / Name</th><th>Intake</th><th>Avg score</th><th>Submitted</th><th>Fee status</th></tr></thead>
+    <tbody>${rows.join("") || '<tr><td class="empty" colspan="6">No students match</td></tr>'}</tbody>
+    <tfoot><tr><td></td><td colspan="2" class="right">${list.length} students, class average:</td><td class="num">${classAvg}%</td><td colspan="2"></td></tr></tfoot>
+  </table></div>`;
 }
 
 // student pages
