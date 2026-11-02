@@ -815,7 +815,13 @@ function renderTeacherSchedule(el, title) {
   el.innerHTML = pageHead(title, `<button class="btn btn-primary btn-sm" onclick="openModal('modalAddClass')">+ Add Class</button>`) + card("My weekly schedule", scheduleGrid(getClasses().filter((c) => c.teacher === currentUser.name), false));
 }
 function renderTeacherGrades(el, title) {
+  const grades = getGrades();
   el.innerHTML = `${pageHead(title)}
+  <div class="stats three">
+    ${stat("", "Results", grades.length, "all assessments", "grades")}
+    ${stat(tone(average(grades)), "Average score", average(grades) + "%", "across all students", "asgn")}
+    ${stat("success", "Passed", grades.filter((g) => pct(g) >= 70).length, "70% and above", "receipt")}
+  </div>
   <div class="pay-search">
     <div class="fg"><label for="tgSearch">Index no. / Name / Subject</label><input id="tgSearch" placeholder="STU-001, name or subject" oninput="showTeacherGrades()"/></div>
     <button class="dark-btn" onclick="openAddGrade()">Add Grade <i>›</i></button>
@@ -839,7 +845,16 @@ function showTeacherGrades() {
   </table></div>`;
 }
 function renderTeacherStudents(el, title) {
+  const active = getStudents().filter((s) => s.status === "active");
+  const graded = active.map((s) => getGrades().filter((g) => g.studentId === s.id)).filter((g) => g.length).map(average);
+  const classAvg = graded.length ? Math.round(graded.reduce((a, b) => a + b, 0) / graded.length) : 0;
+  const owing = active.reduce((a, s) => a + Math.max(0, balance(s)), 0);
   el.innerHTML = `${pageHead(title)}
+  <div class="stats three">
+    ${stat("", "Active students", active.length, "in your classes", "students")}
+    ${stat(tone(classAvg), "Class average", classAvg + "%", graded.length + " students graded", "grades")}
+    ${stat(owing > 0 ? "danger" : "success", "Fees outstanding", rm(owing), owing > 0 ? "still to collect" : "all paid", "fee")}
+  </div>
   <div class="pay-search">
     <div class="fg"><label for="tsSearch">Index no. / Name</label><input id="tsSearch" placeholder="STU-001 or name" oninput="showTeacherStudents()"/></div>
     <button class="dark-btn" onclick="nav('t-grades')">Grade Students <i>›</i></button>
@@ -850,7 +865,7 @@ function renderTeacherStudents(el, title) {
 function showTeacherStudents() {
   const q = document.getElementById("tsSearch").value.trim().toLowerCase();
   const list = getStudents().filter((s) => s.status === "active" && [s.id, s.name].some((v) => v.toLowerCase().includes(q)));
-  // students with no grades yet show a dash and stay out of the class average
+  // no grades yet shows a dash and is left out of the average
   const avgs = list.map((s) => {
     const mine = getGrades().filter((g) => g.studentId === s.id);
     return mine.length ? average(mine) : null;
