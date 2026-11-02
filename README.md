@@ -10,7 +10,7 @@ A student management system I built during my Diploma internship, for the repair
 
 Admin staff, teachers and students each log in to their own view. Admin keeps student records, creates fee payments, checks bank slips and issues receipts. Teachers manage classes, grades and assignments. Students see their schedule, results and fees, upload payment slips and hand in assignments.
 
-It runs fully in the browser. Data is saved in `localStorage`, so there is no server or database to set up.
+The version used at the company stored its data in MySQL. This public demo keeps the data in the browser's `localStorage` instead, so it runs without a server or database.
 
 The look mixes a 2022 admin dashboard style with two older screens: a Windows form for the student record, and a glossy web 2.0 table for fees and receipts.
 
@@ -52,7 +52,8 @@ All students, IC numbers and bank accounts are made-up demo data.
 ## Technologies
 
 - HTML, CSS and plain JavaScript, no framework and no build step
-- `localStorage` for data
+- MySQL for data in the original company version
+- `localStorage` for data in this public demo
 - Google Fonts (Nunito, Oswald)
 
 ## Getting Started
