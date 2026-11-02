@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LXX Student Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Oswald:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- login -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-side">
+      <img src="data:image/png;base64,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" alt=""/>
+      <h2>LXX Sdn. Bhd.</h2>
+      <p>Student Management System</p>
+      <span class="pill primary">Certificate in Computer &amp; Device Repair</span>
+    </div>
+    <div class="login-form">
+      <h1>Welcome Back!</h1>
+      <input type="hidden" id="loginRole" value="admin"/>
+      <div class="role-tabs">
+        <div class="role-tab active" onclick="setLoginRole('admin', this)">Admin</div>
+        <div class="role-tab" onclick="setLoginRole('teacher', this)">Teacher</div>
+        <div class="role-tab" onclick="setLoginRole('student', this)">Student</div>
+      </div>
+      <div class="fg"><label for="loginEmail">Email address</label><input class="login-input" type="email" id="loginEmail" value="admin@lxx.example"/></div>
+      <div class="fg"><label for="loginPass">Password</label><input class="login-input" type="password" id="loginPass" value="admin123" onkeydown="if (event.key === 'Enter') doLogin()"/></div>
+      <button class="btn btn-primary" onclick="doLogin()">Login</button>
+      <div class="login-hint" id="loginHint">Demo: admin@lxx.example / admin123</div>
+    </div>
+  </div>
+</div>
+
+<!-- app -->
+<div id="app">
+  <div class="sidebar">
+    <div class="brand"><img src="data:image/png;base64,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" alt=""/><div class="brand-text">LXX SMS<small>Student Management</small></div></div>
+    <hr/>
+    <div class="sidebar-nav" id="sidebarNav"></div>
+    <button class="side-toggle" onclick="toggleSidebar()" title="Collapse or expand menu"></button>
+    <div class="user-row">
+      <div class="user-text"><div class="u-name" id="sidebarUserName">Admin</div><div class="u-role" id="sidebarUserRole">Administrator</div></div>
+      <button class="u-logout" onclick="doLogout()" title="Log out">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8h8M11 5l3 3-3 3"/><path d="M10 3H3v10h7"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <button class="menu-btn" onclick="toggleSidebar()" title="Collapse or expand menu">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+      <div class="top-search">
+        <input id="topSearch" placeholder="Search for students..." onkeydown="if (event.key === 'Enter') topSearchGo()"/>
+        <button onclick="topSearchGo()" title="Search">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l4 4"/></svg>
+        </button>
+      </div>
+      <div class="topbar-r">
+        <button class="bell" onclick="nav(currentRole === 'admin' ? 'notices' : currentRole === 'teacher' ? 't-notices' : 's-dashboard')" title="Notices">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1a5 5 0 015 5v3l1.5 2H1.5L3 9V6a5 5 0 015-5z"/><path d="M6.5 13a1.5 1.5 0 003 0"/></svg>
+          <span class="dot">3</span>
+        </button>
+        <div class="vr"></div>
+        <div class="top-user"><span id="topUserName">Admin</span><span id="topAvatar" class="avatar"></span></div>
+      </div>
+    </div>
+    <div class="content">
+      <div id="page-dashboard" class="page"></div>
+      <div id="page-students" class="page"></div>
+      <div id="page-student-view" class="page"></div>
+      <div id="page-fees" class="page"></div>
+      <div id="page-receipts" class="page"></div>
+      <div id="page-schedule" class="page"></div>
+      <div id="page-grades" class="page"></div>
+      <div id="page-assignments" class="page"></div>
+      <div id="page-notices" class="page"></div>
+      <div id="page-settings" class="page"></div>
+      <div id="page-t-dashboard" class="page"></div>
+      <div id="page-t-schedule" class="page"></div>
+      <div id="page-t-grades" class="page"></div>
+      <div id="page-t-assignments" class="page"></div>
+      <div id="page-t-students" class="page"></div>
+      <div id="page-t-notices" class="page"></div>
+      <div id="page-s-dashboard" class="page"></div>
+      <div id="page-s-schedule" class="page"></div>
+      <div id="page-s-grades" class="page"></div>
+      <div id="page-s-assignments" class="page"></div>
+      <div id="page-s-fees" class="page"></div>
+      <div id="page-s-profile" class="page"></div>
+    </div>
+  </div>
+</div>
+
+<!-- modals -->
+<div class="modal-bg" id="modalAddStudent">
+  <div class="modal wide">
+    <div class="modal-hd"><div class="modal-title" id="modalStudentTitle">Add New Student</div><button class="modal-x" onclick="closeModal('modalAddStudent')">×</button></div>
+    <input type="hidden" id="ne-edit-id"/>
+    <div class="form-grid">
+      <div class="fg span2"><label for="ne-name">Full name (as per IC)</label><input type="text" id="ne-name" placeholder="e.g. Ah Kow bin Nobody"/></div>
+      <div class="fg"><label for="ne-ic">IC / Passport no</label><input type="text" id="ne-ic" placeholder="000001-00-0001"/></div>
+      <div class="fg"><label for="ne-dob">Date of birth</label><input type="date" id="ne-dob" value="2000-01-01"/></div>
+      <div class="fg"><label for="ne-email">Email</label><input type="email" id="ne-email" placeholder="name@student.lxx.example"/></div>
+      <div class="fg"><label for="ne-phone">Phone</label><input type="text" id="ne-phone" placeholder="+60 12-000 0001"/></div>
+      <div class="fg span2"><label for="ne-address">Address</label><input type="text" id="ne-address" placeholder="No X, Jalan Y"/></div>
+      <div class="fg"><label for="ne-intake">Intake</label><select id="ne-intake"><option>2022-01</option><option>2023-01</option><option>2023-07</option></select></div>
+      <div class="fg"><label for="ne-status">Status</label><select id="ne-status"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+      <div class="fg"><label for="ne-bank">Bank</label><select id="ne-bank"><option>Maybank</option><option>CIMB</option><option>Public Bank</option><option>RHB</option><option>AmBank</option></select></div>
+      <div class="fg"><label for="ne-acc">Bank account no</label><input type="text" id="ne-acc" placeholder="10 digits"/></div>
+      <div class="fg"><label for="ne-feeTotal">Total programme fee (RM)</label><input type="number" id="ne-feeTotal" value="12000"/></div>
+      <div class="fg"><label for="ne-feePaid">Fee paid so far (RM)</label><input type="number" id="ne-feePaid" value="0"/></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddStudent')">Cancel</button><button class="btn btn-primary" onclick="saveStudent()">Save Student</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalAddFee">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Create Payment</div><button class="modal-x" onclick="closeModal('modalAddFee')">×</button></div>
+    <div class="form-grid">
+      <div class="fg span2"><label for="fee-studentId">Student</label><select id="fee-studentId"></select></div>
+      <div class="fg"><label for="fee-month">Fee month (YYYY-MM)</label><input type="text" id="fee-month" placeholder="2023-04"/></div>
+      <div class="fg"><label for="fee-amount">Amount (RM)</label><input type="number" id="fee-amount" value="500"/></div>
+      <div class="fg span2"><label for="fee-dueDate">Due date</label><input type="date" id="fee-dueDate" value="2023-04-30"/></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddFee')">Cancel</button><button class="btn btn-primary" onclick="saveFee()">Save</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalAddClass">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Add Class</div><button class="modal-x" onclick="closeModal('modalAddClass')">×</button></div>
+    <div class="form-grid">
+      <div class="fg span2"><label for="cls-subject">Subject</label><input type="text" id="cls-subject" placeholder="Computer Hardware Basics"/></div>
+      <div class="fg"><label for="cls-teacher">Teacher</label><input type="text" id="cls-teacher" placeholder="Cikgu Blur Sikit"/></div>
+      <div class="fg"><label for="cls-day">Day</label><select id="cls-day"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option></select></div>
+      <div class="fg"><label for="cls-time">Start time</label><input type="time" id="cls-time" value="09:00"/></div>
+      <div class="fg"><label for="cls-endTime">End time</label><input type="time" id="cls-endTime" value="11:00"/></div>
+      <div class="fg"><label for="cls-room">Room</label><input type="text" id="cls-room" placeholder="Lab A"/></div>
+      <div class="fg"><label for="cls-intake">Intake</label><select id="cls-intake"><option>2023-01</option><option>2023-07</option><option>2022-01</option></select></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddClass')">Cancel</button><button class="btn btn-primary" onclick="saveClass()">Save</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalAddGrade">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Add Grade</div><button class="modal-x" onclick="closeModal('modalAddGrade')">×</button></div>
+    <div class="form-grid">
+      <div class="fg span2"><label for="grd-studentId">Student</label><select id="grd-studentId"></select></div>
+      <div class="fg span2"><label for="grd-subject">Subject</label><input type="text" id="grd-subject" placeholder="Computer Hardware Basics"/></div>
+      <div class="fg"><label for="grd-type">Assessment type</label><select id="grd-type"><option>Assignment</option><option>Test</option><option>Exam</option><option>Practical</option></select></div>
+      <div class="fg"><label for="grd-date">Date</label><input type="date" id="grd-date" value="2023-03-15"/></div>
+      <div class="fg"><label for="grd-score">Score</label><input type="number" id="grd-score" placeholder="85" min="0"/></div>
+      <div class="fg"><label for="grd-maxScore">Max score</label><input type="number" id="grd-maxScore" value="100"/></div>
+      <div class="fg span2"><label for="grd-remarks">Remarks</label><input type="text" id="grd-remarks" placeholder="Optional"/></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddGrade')">Cancel</button><button class="btn btn-primary" onclick="saveGrade()">Save Grade</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalAddAsgn">
+  <div class="modal wide">
+    <div class="modal-hd"><div class="modal-title">Post Assignment</div><button class="modal-x" onclick="closeModal('modalAddAsgn')">×</button></div>
+    <div class="form-grid">
+      <div class="fg span2"><label for="asgn-title">Title</label><input type="text" id="asgn-title" placeholder="e.g. Disassemble and Reassemble Laptop"/></div>
+      <div class="fg"><label for="asgn-subject">Subject</label><input type="text" id="asgn-subject" placeholder="Computer Hardware Basics"/></div>
+      <div class="fg"><label for="asgn-due">Due date</label><input type="date" id="asgn-due" value="2023-04-30"/></div>
+      <div class="fg"><label for="asgn-intake">Intake</label><select id="asgn-intake"><option>2023-01</option><option>2023-07</option><option>2022-01</option></select></div>
+      <div class="fg span2"><label for="asgn-desc">Instructions</label><textarea id="asgn-desc" placeholder="What students need to do"></textarea></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddAsgn')">Cancel</button><button class="btn btn-primary" onclick="saveAsgn()">Post Assignment</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalAddNotice">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Post Notice</div><button class="modal-x" onclick="closeModal('modalAddNotice')">×</button></div>
+    <div class="form-grid one">
+      <div class="fg"><label for="ntc-title">Title</label><input type="text" id="ntc-title" placeholder="Notice title"/></div>
+      <div class="fg"><label for="ntc-body">Message</label><textarea id="ntc-body" placeholder="Write your notice here"></textarea></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalAddNotice')">Cancel</button><button class="btn btn-primary" onclick="saveNotice()">Post</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalReceipt">
+  <div class="modal wide">
+    <div class="modal-hd"><div class="modal-title">Official Receipt</div><button class="modal-x" onclick="closeModal('modalReceipt')">×</button></div>
+    <div id="receiptContent"></div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalReceipt')">Close</button><button class="btn btn-primary" onclick="printReceiptFromModal()">Print / Download</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalSubmissions">
+  <div class="modal wide">
+    <div class="modal-hd"><div class="modal-title">Assignment Submissions</div><button class="modal-x" onclick="closeModal('modalSubmissions')">×</button></div>
+    <div class="modal-body" id="submissionsContent"></div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalSubmissions')">Close</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalSubmitAsgn">
+  <div class="modal">
+    <div class="modal-hd"><div><div class="modal-title">Submit Assignment</div><div class="muted" id="submitAsgnTitle"></div></div><button class="modal-x" onclick="closeModal('modalSubmitAsgn')">×</button></div>
+    <input type="hidden" id="submitAsgnId"/>
+    <div class="form-grid one">
+      <div class="fg">
+        <label for="submitFile">Upload file (PDF, image or ZIP)</label>
+        <label class="upload-area"><b>Click to choose a file</b>PDF, DOC, JPG, ZIP<input type="file" id="submitFile" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip"/></label>
+      </div>
+      <div class="fg"><label for="submitNotes">Notes for your teacher</label><textarea id="submitNotes"></textarea></div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalSubmitAsgn')">Cancel</button><button class="btn btn-primary" onclick="submitAssignment()">Submit</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalUploadSlip">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Upload Payment Slip</div><button class="modal-x" onclick="closeModal('modalUploadSlip')">×</button></div>
+    <input type="hidden" id="uploadSlipFeeId"/>
+    <div class="form-grid one">
+      <div class="fg">
+        <label for="uploadSlipFile">Bank receipt or slip</label>
+        <label class="upload-area"><b>Upload your bank payment slip</b>JPG, PNG, PDF<input type="file" id="uploadSlipFile" hidden accept=".jpg,.jpeg,.png,.pdf"/></label>
+      </div>
+      <div class="note-box">After you upload, admin will check it and issue an official receipt.</div>
+    </div>
+    <div class="modal-ft"><button class="btn" onclick="closeModal('modalUploadSlip')">Cancel</button><button class="btn btn-primary" onclick="uploadSlip()">Upload Slip</button></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="app.js"></script>
+<script>
+  // top search jumps to the students page for admin
+  function topSearchGo() {
+    const q = document.getElementById("topSearch").value;
+    if (currentRole !== "admin") return showToast("Search is for admin only", "info");
+    nav("students");
+    document.getElementById("stuSearch").value = q;
+    searchStudents(q);
+  }
+</script>
+</body>
+</html>
