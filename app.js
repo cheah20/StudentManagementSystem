@@ -812,7 +812,30 @@ function renderTeacherDash(el, title) {
   <div class="grid-2">${card("My schedule this week", week || '<p class="muted">No classes.</p>')}${card("Notices", noticeList(4))}</div>`;
 }
 function renderTeacherSchedule(el, title) {
-  el.innerHTML = pageHead(title, `<button class="btn btn-primary btn-sm" onclick="openModal('modalAddClass')">+ Add Class</button>`) + card("My weekly schedule", scheduleGrid(getClasses().filter((c) => c.teacher === currentUser.name), false));
+  const mine = getClasses().filter((c) => c.teacher === currentUser.name);
+  const hours = (c) => (parseInt(c.endTime) * 60 + parseInt(c.endTime.slice(3)) - parseInt(c.time) * 60 - parseInt(c.time.slice(3))) / 60;
+  const total = mine.reduce((a, c) => a + hours(c), 0);
+  const rows = mine
+    .slice()
+    .sort((a, b) => DAYS.indexOf(a.day) - DAYS.indexOf(b.day) || a.time.localeCompare(b.time))
+    .map((c, i) => `<tr><td class="right">${i + 1}</td><td>${c.day}<br><small class="muted">${c.time} – ${c.endTime}</small></td><td><span class="code">${c.id}</span><br>${c.subject}</td>
+      <td>${c.room}</td><td><span class="pill primary">${c.intake}</span></td><td class="num">${hours(c).toFixed(1)}</td></tr>`);
+  el.innerHTML = `${pageHead(title)}
+  <div class="stats three">
+    ${stat("", "My classes", mine.length, "each week", "schedule")}
+    ${stat("info", "Teaching hours", total.toFixed(1), "hours a week", "grades")}
+    ${stat("success", "Rooms", new Set(mine.map((c) => c.room)).size, [...new Set(mine.map((c) => c.room))].join(", "), "dash")}
+  </div>
+  <div class="pay-search">
+    <div class="fg"><label>Week of</label><input value="${TODAY}" readonly/></div>
+    <button class="dark-btn" onclick="openModal('modalAddClass')">Add Class <i>›</i></button>
+  </div>
+  ${card("My weekly schedule", scheduleGrid(mine, false))}
+  <div class="gloss"><div class="gloss-title">My Classes</div><table>
+    <thead><tr><th>No</th><th>Day / Time</th><th>Code / Subject</th><th>Room</th><th>Intake</th><th>Hours</th></tr></thead>
+    <tbody>${rows.join("") || '<tr><td class="empty" colspan="6">No classes yet</td></tr>'}</tbody>
+    <tfoot><tr><td></td><td colspan="4" class="right">${mine.length} classes, total hours:</td><td class="num">${total.toFixed(1)}</td></tr></tfoot>
+  </table></div>`;
 }
 function renderTeacherGrades(el, title) {
   const grades = getGrades();
